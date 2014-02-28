@@ -176,14 +176,13 @@ class SnakeEnvironment extends Environment {
 
             Point cellLocation;
             if (snake != null) {
-                graphics.setColor(snake.getColor());
                 
                 for (int i = 0; i < snake.getBody().size(); i++) {
                     cellLocation = grid.getCellPosition(snake.getBody().get(i));
                     if (i == 0) {
                         snake.drawHead(graphics, cellLocation, this.grid.getCellSize());
                     } else {
-                        graphics.fillOval(cellLocation.x, cellLocation.y, grid.getCellWidth(), grid.getCellHeight());
+                        snake.drawBodySegment(graphics, cellLocation, this.grid.getCellSize());
                     }
                 }
             }
