@@ -4,6 +4,7 @@
  */
 package datsnake;
 
+import audio.AudioPlayer;
 import environment.Environment;
 import environment.GraphicsPalette;
 import environment.Grid;
@@ -16,6 +17,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,7 +38,7 @@ class SnakeEnvironment extends Environment {
     private int moveDelay = 7;
     private int moveCounter = moveDelay;
     private ArrayList<Point> bombs;
-
+    
     public SnakeEnvironment() {
     }
 
@@ -176,7 +178,6 @@ class SnakeEnvironment extends Environment {
 
             Point cellLocation;
             if (snake != null) {
-                
                 for (int i = 0; i < snake.getBody().size(); i++) {
                     cellLocation = grid.getCellPosition(snake.getBody().get(i));
                     if (i == 0) {
@@ -260,7 +261,9 @@ class SnakeEnvironment extends Environment {
         this.drawPicture = false;
 
     }
-
+    private void inputDialogu(){
+    JOptionPane.showInputDialog("tofu and apples each worth 10 points, eating tofu will slow you down, when you get to higher level, the speed of the snake will increase, and when you eat the bomb, the snake will die and the game is over!");
+    }
     private void checkBoredIntersection() {
 //if the snake location is the same as an apple location
         //ithen grow the smake and remove the apple
@@ -270,13 +273,16 @@ class SnakeEnvironment extends Environment {
 //                System.out.println("Apple chomp!!!!!");
                 this.setScore(this.getScore() + 10);
                 this.apples.get(i).setLocation(getRandomGridLocation());
+                AudioPlayer.play("/resources/apple.wav");
                 //grow the snake
                 this.snake.grow(1);
             }
         }
+        
         for (int i = 0; i < this.bombs.size(); i++) {
             if (snake.getHead().equals(this.bombs.get(i))) {
                 System.out.println("GameOver");
+                AudioPlayer.play("/resources/bomb.wav");
                 gameState = GameState.ENDED;
                 break;
             }
@@ -285,6 +291,7 @@ class SnakeEnvironment extends Environment {
             if (snake.getHead().equals(this.tofus.get(i))) {
                 this.setScore(this.getScore() + 10);
                 this.snake.grow(1);
+                AudioPlayer.play("/resources/tofu.wav");
                 this.tofus.get(i).setLocation(getRandomGridLocation());
                 this.moveDelay++;
                 break;

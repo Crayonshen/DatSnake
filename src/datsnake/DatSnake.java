@@ -18,6 +18,7 @@ public class DatSnake {
      */
     public static void main(String[] args) {
         start();
+        inputDialogu();
     }
 
     private static void start() {
@@ -25,6 +26,10 @@ public class DatSnake {
         myGame.setBackground(ResourceTools.loadImageFromResource("resources/green-tech-lines-powerpoint-green-tech-lines-backgrounds.jpg"));
         ApplicationStarter.run("Dat Snake", new SnakeEnvironment());
         ApplicationStarter.run("my Rockin' Project", myGame);
+    }
+
+    private static void inputDialogu() {
+    
     }
     
 }
